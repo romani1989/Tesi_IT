@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prenotazione Visita</title>
+    <link rel="stylesheet" href="../style.css"> 
+    <link rel="stylesheet" href="prenotazione.css"> 
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Healthy <span>Hub</span></h1>
+        </div>
+        <button id="backToHome" class="cta-button">Torna alla Home</button>
+    </header>
+
+    <!-- Sezione Specialisti Disponibili -->
+    <section id="team" class="section-team">
+        <h2>Seleziona lo Specialista</h2>
+        <div class="team-members">
+            <div class="team-member" data-specialist-id="1">
+                <img src="../images/Giuseppe.jpeg" alt="Giuseppe Rossi - Medico">
+                <h4>Giuseppe Rossi</h4>
+                <span>Medico</span>
+            </div>
+            <div class="team-member" data-specialist-id="2">
+                <img src="../images/Gelsomina.jpeg" alt="Gelsomina Bianchi - Psicologa">
+                <h4>Gelsomina Bianchi</h4>
+                <span>Psicologa</span>
+            </div>
+            <div class="team-member" data-specialist-id="3">
+                <img src="../images/Guglielmo.png" alt="Guglielmo Verdi - Psicologo">
+                <h4>Guglielmo Verdi</h4>
+                <span>Psicologo</span>
+            </div>
+            <div class="team-member" data-specialist-id="4">
+                <img src="../images/Vincenzo.png" alt="Vincenzo Esposito - Medico">
+                <h4>Vincenzo Esposito</h4>
+                <span>Medico</span>
+            </div>
+            <div class="team-member" data-specialist-id="5">
+                <img src="../images/Elena.png" alt="Elena Cimmino - Nutrizionista">
+                <h4>Elena Cimmino</h4>
+                <span>Nutrizionista</span>
+            </div>
+            <div class="team-member" data-specialist-id="6">
+                <img src="../images/Carmela.png" alt="Carmela Crilino - Nutrizionista">
+                <h4>Carmela Crilino</h4>
+                <span>Nutrizionista</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Prenotazione -->
+    <section class="booking-section">
+        <h2>Dettagli della Prenotazione</h2>
+        <form id="bookingForm">
+            <input type="hidden" id="selectedSpecialistId"> <!-- Campo nascosto per lo specialista -->
+
+            <label for="appointmentDate">Data:</label>
+            <input type="date" id="appointmentDate" required>
+
+            <label for="appointmentTime">Orario:</label>
+            <input type="time" id="appointmentTime" required>
+
+            <button id="confirmBookingBtn" class="cta-button">Conferma Prenotazione</button>
+        </form>
+    </section>
+
+    <script src="prenotazione.js"></script>
+</body>
+</html>

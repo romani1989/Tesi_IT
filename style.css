@@ -1,0 +1,486 @@
+/* Stili generali */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Work Sans', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: bold; /* Rende il testo in grassetto */
+    font-style: revert; /* Mantiene lo stile del font */
+}
+
+/* Header */
+header {
+    background-color: transparent;
+    padding: 5px 0;
+    text-align: center;
+    position: relative;
+}
+
+header .logo h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+header .logo h1 span {
+    color: #8BB4FF;
+}
+
+
+/* Titolo "Come Funziona" */
+.how-it-works p {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+/* Contenitore principale */
+.steps-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Spazio tra i cerchi */
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Cerchio con immagine di sfondo */
+.circle {
+    width: 180px;
+    height: 180px;
+    background: url('images/registrati.jpg') no-repeat center center;
+    background-size: cover; /* Adatta l'immagine al cerchio */
+    border-radius: 50%; /* Rende il contenitore circolare */
+    display: flex;
+    flex-direction: column; /* Posiziona testo e numero in verticale */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform 0.3s ease; /* Effetto al passaggio del mouse */
+}
+
+/* Effetto hover */
+.circle:hover {
+    transform: scale(1.05); /* Leggera espansione al passaggio del mouse */
+}
+
+/* Numero al centro */
+.number {
+    font-size: 3.5rem; /* Dimensione del numero */
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Ombra per rendere il numero leggibile */
+}
+
+/* Testo sotto il numero */
+.circle p {
+    margin-top: 10px; /* Spazio tra il cerchio e il testo */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+
+/* Evidenziazione di una parola specifica (opzionale) */
+.how-it-works p span {
+    color: #8BB4FF; /* Colore evidenziato per alcune parole */
+}
+
+/* Call-to-Action Button (Login + Registrati) */
+.cta-button {
+    background-color: #8BB4FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #3b6ad8;
+}
+
+/* 🔹 Nasconde le modali solo all'avvio */
+.modal {
+    display: flex;  /* Mantiene il comportamento flex */
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* 🔹 Quando la modale è aperta */
+.modal.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 🔹 Stili generali per la modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Sfondo scuro trasparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* 🔹 Contenuto della modale */
+.modal-content-c {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 650px; /* Allargata per maggiore leggibilità */
+    max-width: 95%;
+    text-align: left;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 Modale di registrazione con SCROLL (senza footer fisso) */
+#registerModal .modal-content-c {
+    max-height: 80vh; /* Imposta un'altezza massima */
+    overflow-y: auto; /* Abilita la barra di scorrimento verticale */
+}
+
+/* Personalizzazione scrollbar */
+#registerModal .modal-content-c::-webkit-scrollbar {
+    width: 8px;
+}
+
+#registerModal .modal-content-c::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#registerModal .modal-content-c::-webkit-scrollbar-thumb {
+    background: #4f8dfc;
+    border-radius: 5px;
+}
+
+/* 🔹 Header della Modale */
+.modal-header-custom {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* 🔹 Etichette dei campi */
+.modal-body label {
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* 🔹 Campi di input */
+.modal-body input,
+.modal-body select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f8f8f8;
+}
+
+/* 🔹 Gruppi di input affiancati */
+.input-group {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+/* 🔹 Ogni input occupa metà spazio nel gruppo */
+.input-group div {
+    width: 50%;
+}
+
+/* 🔹 Footer della modale */
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+/* 🔹 Pulsanti */
+.modal-footer button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* 🔹 Stile pulsante Chiudi (Login e Registrazione) */
+#closeRegisterBtn,
+#closeLoginBtn {
+    background-color: #ccc;
+    color: black;
+}
+
+/* 🔹 Stile pulsante Registrati */
+.modal-footer button.cta-button {
+    background-color: #4f8dfc;
+    color: white;
+}
+
+/* 🔹 Effetto Hover */
+.modal-footer button:hover {
+    opacity: 0.8;
+}
+
+
+/* Contenitore Hero */
+.hero-container {
+    display: flex; /* Usa Flexbox per disporre gli elementi in linea */
+    justify-content: space-between; /* Spaziatura uniforme tra le sezioni */
+    gap: 20px; /* Spazio tra le sezioni */
+    margin: 20px;
+}
+
+/* Hero Section Generale */
+.hero-section {
+    flex: 1; /* Entrambe le sezioni occupano lo stesso spazio */
+    height: 70vh; /* Altezza delle sezioni */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    color: black;
+    text-align: center;
+    border-radius: 10px; /* Angoli arrotondati */
+    position: relative; /* Aggiunto per posizionamento assoluto dei bottoni */
+}
+
+/* Contenitore interno per testo e pulsante */
+.hero-section .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Allinea tutto al centro */
+    justify-content: center;
+    gap: 15px; /* Aggiunto spazio uniforme tra testo e pulsante */
+    text-align: center;
+    width: 80%;
+}
+
+/* Distanza uniforme tra il testo e il pulsante */
+.hero-section .content p {
+    margin-bottom: 2px;
+}
+
+/* Pulsanti (CTA) */
+.cta-button {
+    display: inline-block;
+    padding: 8px 18px;
+    font-size: 1rem;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cta-button:hover {
+    background: #3b6ad8;
+    transform: scale(1.05);
+}
+
+/* Hero Section 1 */
+.hero-section-1 {
+    background-image: url('images/Doc.png'); /* Immagine della prima sezione */
+}
+.hero-section-1.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* Hero Section 2 */
+.hero-section-2 {
+    background-image: url('images/Book.jpeg'); /* Immagine della seconda sezione */
+}
+
+.hero-section-2.show {
+    display: flex;
+    opacity: 1;
+}
+
+.hero-section h1 {
+    font-size: 2rem;
+    color: black;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Professionals Section */
+.professionals {
+    background-color: #8BB4FF;
+    height: 75px;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.professionals h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.professionals-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.professionals-buttons button {
+    background-color: #ffffff;
+    color: #8BB4FF;
+    border: 1px solid #ffffff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.professionals-buttons button:hover {
+    background-color: #ffffff;
+    color: #333333;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenitore per i box */
+.steps-container {
+    display: flex; /* Usa Flexbox per disporre i box in linea */
+    gap: 20px; /* Spazio tra i box */
+    margin: 20px 0; /* Margine superiore e inferiore */
+}
+
+/* Ogni box step */
+.step {
+    width: calc(33.33% - 20px); /* Adatta larghezza per 3 box con spazio tra loro */
+    text-align: center;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Immagini */
+.step img {
+    width: 100%; /* L'immagine occupa tutta la larghezza del box */
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* Team Section */
+.section-team {
+    padding: 50px 20px;
+    text-align: center;
+    }
+
+.section-team h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    width: 220px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.team-member img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.team-member h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.team-member span {
+    font-size: 0.9rem;
+    color: #666;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.team-member a {
+    text-decoration: none;
+    color: #8BB4FF;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.team-member a:hover {
+    color: #3b6ad8;
+}
+
+.background{
+    background-image:url(/images/background.png) ; 
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
