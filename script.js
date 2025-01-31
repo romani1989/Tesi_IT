@@ -1,129 +1,61 @@
 const API_URL = "http://127.0.0.1:5000"; // URL del backend Flask
 
-let provinceData = [];
-let comuniData = [];
+let provinceData = [], comuniData = [];
 
-// 🔹 Funzione per aprire una modale
-const openModal = (modal) => {
-    modal.classList.add('show');
-};
+// 🔹 Funzione per aprire e chiudere una modale
+const openModal = (modal) => $(modal).addClass('show');
+const closeModal = (modal) => $(modal).removeClass('show');
+let isLoggedIn=false;
+// 📌 Eventi per apertura e chiusura delle modali
+$(document).ready(async function () {
+    isLoggedIn = localStorage.getItem("userToken");
 
-// 🔹 Funzione per chiudere una modale
-const closeModal = (modal) => {
-    modal.classList.remove('show');
-};
-
-// 📌 Riferimenti agli elementi per il login
-const loginBtn = document.getElementById('loginBtn');
-const loginModal = document.getElementById('loginModal');
-const closeLoginModal = document.getElementById('closeLoginModal');
-const closeLoginBtn = document.getElementById('closeLoginBtn');
-
-// 📌 Riferimenti agli elementi per la registrazione
-const registerBtn = document.getElementById('registerBtn');
-const registerModal = document.getElementById('registerModal');
-const closeRegisterModal = document.getElementById('closeRegisterModal');
-const closeRegisterBtn = document.getElementById('closeRegisterBtn');
-
-// 📌 Riferimento al pulsante "Prenota"
-const bookNowBtn = document.getElementById("bookNowBtn");
-
-// 📌 Aggiungi evento click per aprire la nuova pagina
-if (bookNowBtn) {
-    bookNowBtn.addEventListener("click", () => {
-        window.location.href = "prenotazione/prenotazione.html"; // Reindirizza alla pagina di prenotazione
+    $("#loginBtn").click(() => isLoggedIn ? logoutUser() : openModal("#loginModal"));
+    $("#registerBtn").click(() => openModal("#registerModal"));
+    $("#closeLoginModal, #closeLoginBtn").click(() => closeModal("#loginModal"));
+    $("#closeRegisterModal, #closeRegisterBtn").click(() => closeModal("#registerModal"));
+    
+    $(window).click((e) => {
+        if ($(e.target).is("#loginModal")) closeModal("#loginModal");
+        if ($(e.target).is("#registerModal")) closeModal("#registerModal");
     });
-}
 
-// 📌 Riferimenti per le Hero Sections
-const heroRegister = document.getElementById('hero-register');
-const heroBook = document.getElementById('hero-book');
+    $("#bookNowBtn").click(() => window.location.href = "prenotazione/prenotazione.html");
+    
+    await loadProvinceAndComuni();
+    updateHeroSection();
+    populateEuropeanCountries();
+    loadProfessionals();
+});
 
-// 🔹 Apertura della modale di registrazione
-if (registerBtn) {
-    registerBtn.addEventListener('click', () => {
-        openModal(registerModal); // Chiama la funzione per aprire la modale
-    });
-}
-
-// 🔹 Chiusura della modale di registrazione
-if (closeRegisterModal) {
-    closeRegisterModal.addEventListener('click', () => {
-        closeModal(registerModal); // Chiama la funzione per chiudere la modale
-    });
-}
-if (closeRegisterBtn) {
-    closeRegisterBtn.addEventListener('click', () => {
-        closeModal(registerModal); // Chiama la funzione per chiudere la modale
-    });
-}
-
-// 🔹 Chiude la modale cliccando fuori dal contenuto
-window.addEventListener('click', (event) => {
-    if (event.target === registerModal) {
-        closeModal(registerModal); // Chiude la modale se si clicca fuori
+$(".verifica-disponibilita").click(function (e) {
+    console.log(isLoggedIn);
+    
+    e.preventDefault();
+    if (!isLoggedIn) {
+        // Mostra la modal di login correttamente
+        openModal("#loginModal")
+    } else {
+        // Se loggato, reindirizza alla pagina del calendario
+        const doctorId = $(this).data("doctorid");
+        window.location.href = `/prenotazione/prenotazione.html?doctorid=${doctorId}`;
     }
 });
 
-// 🔹 Funzione per aggiornare la Hero Section
-function updateHeroSection() {
-    const isLoggedIn = localStorage.getItem("userToken"); // Controlla se l'utente è loggato
-
-    if (isLoggedIn) {
-        // Mostra la Hero Section "Prenota"
-        heroRegister.style.display = "none";
-        heroBook.style.display = "flex";
-        updateLoginButton(true); // Aggiorna il pulsante Login
-    } else {
-        // Mostra la Hero Section "Registrati"
-        heroRegister.style.display = "flex";
-        heroBook.style.display = "none";
-        updateLoginButton(false); // Aggiorna il pulsante Login
-    }
-}
-
-// 🔹 Funzione per aggiornare il pulsante Login/Logout
-function updateLoginButton(isLoggedIn) {
-    if (isLoggedIn) {
-        loginBtn.textContent = "Logout";
-        loginBtn.onclick = logoutUser;
-    } else {
-        loginBtn.textContent = "Login";
-        loginBtn.onclick = () => openModal(loginModal);
-    }
-}
-
-// 🔹 Event listener per chiudere la modale (pulsante "Chiudi")
-if (closeLoginBtn) {
-    closeLoginBtn.addEventListener('click', () => {
-        closeModal(loginModal); // Chiude la modale
-    });
-}
-
-
-// 🔹 Chiude la modale cliccando fuori dal contenuto
-window.addEventListener('click', (event) => {
-    if (event.target === loginModal) {
-        closeModal(loginModal); // Chiude la modale se si clicca fuori
-    }
-});
-
-
-// 🔹 Funzione per registrare un utente tramite API Flask
 async function registerUser() {
     const userData = {
-        nome: document.getElementById("registerNome").value,
-        cognome: document.getElementById("registerCognome").value,
-        data_nascita: document.getElementById("registerDataNascita").value,
-        sesso_biologico: document.getElementById("registerSesso").value,
-        nazione_nascita: document.getElementById("registerNazione").value,
-        provincia_nascita: document.getElementById("registerProvincia").value,
-        comune_nascita: document.getElementById("registerComune").value,
-        codice_fiscale: document.getElementById("registerCF").value,
-        email: document.getElementById("registerEmail").value,
-        cellulare: document.getElementById("registerCellulare").value,
-        password: document.getElementById("registerPassword").value,
-        conferma_password: document.getElementById("registerConfirmPassword").value
+        nome: $("#registerNome").val(),
+        cognome: $("#registerCognome").val(),
+        data_nascita: $("#registerDataNascita").val(),
+        sesso_biologico: $("#registerSesso").val(),
+        nazione_nascita: $("#registerNazione").val(),
+        provincia_nascita: $("#registerProvincia").val(),
+        comune_nascita: $("#registerComune").val(),
+        codice_fiscale: $("#registerCF").val(),
+        email: $("#registerEmail").val(),
+        cellulare: $("#registerCellulare").val(),
+        password: $("#registerPassword").val(),
+        conferma_password: $("#registerConfirmPassword").val()
     };
 
     try {
@@ -137,138 +69,46 @@ async function registerUser() {
 
         if (response.ok) {
             alert("Registrazione completata con successo!");
-            closeModal(registerModal);
+            closeModal("#registerModal");
         } else {
             alert(data.message);
         }
     } catch (error) {
         console.error("Errore durante la registrazione:", error);
     }
-
 }
 
-// 🔹 Funzione per caricare le nazioni europee
-async function populateEuropeanCountries() {
-    try {
-        const response = await fetch("/european_countries.json"); // Percorso del file JSON
-        if (!response.ok) {
-            throw new Error("Impossibile caricare il file JSON");
-        }
-        const countries = await response.json(); // Legge e converte il file JSON in un array
-        const countrySelect = document.getElementById("registerNazione");
-
-        // Aggiunge ogni nazione come opzione nel menu a tendina
-        countries.forEach(country => {
-            const option = document.createElement("option");
-            option.value = country;
-            option.textContent = country;
-            countrySelect.appendChild(option);
-        });
-    } catch (error) {
-        console.error("Errore durante il caricamento delle nazioni:", error);
-    }
+function updateHeroSection() {
+    isLoggedIn = !!localStorage.getItem("userToken");
+    $("#hero-register").toggle(!isLoggedIn);
+    $("#hero-book").toggle(isLoggedIn);
+    updateLoginButton(isLoggedIn);
 }
 
-// 🔹 Funzione per caricare le province e i comuni dai file JSON
-async function loadProvinceAndComuni() {
-    try {
-        const [provinceResponse, comuniResponse] = await Promise.all([
-            fetch("province.json"),
-            fetch("comuni.json")
-        ]);
-
-        if (!provinceResponse.ok || !comuniResponse.ok) {
-            throw new Error("Errore durante il caricamento dei dati JSON");
-        }
-
-        provinceData = await provinceResponse.json();
-        comuniData = await comuniResponse.json();
-    } catch (error) {
-        console.error("Errore durante il caricamento dei dati:", error);
-    }
+// 🔹 Aggiorna il pulsante Login/Logout
+function updateLoginButton(isLoggedIn) {
+    $("#loginBtn").text(isLoggedIn ? "Logout" : "Login").off("click").click(isLoggedIn ? logoutUser : () => openModal("#loginModal"));
 }
-
-// 🔹 Popola il menu a tendina delle province italiane
-function populateProvince() {
-    const provinceSelect = document.getElementById("registerProvincia");
-    provinceSelect.innerHTML = '<option value="" disabled selected>Seleziona una provincia</option>';
-
-    // Aggiunge solo province italiane
-    provinceData.forEach(province => {
-        const option = document.createElement("option");
-        option.value = province.id; // ID della provincia
-        option.textContent = `${province.nome} (${province.siglaProvincia})`;
-        provinceSelect.appendChild(option);
-    });
-
-    // Svuota il menu dei comuni
-    document.getElementById("registerComune").innerHTML = '<option value="" disabled selected>Seleziona un comune</option>';
-}
-
-
-
-
-// 🔹 Popola il menu a tendina dei comuni in base alla provincia selezionata
-function populateComuni(selectedProvinciaId) {
-    const comuniSelect = document.getElementById("registerComune");
-    comuniSelect.innerHTML = '<option value="" disabled selected>Seleziona un comune</option>';
-
-    // Filtra i comuni per provincia
-    const comuniFiltrati = comuniData.filter(comune => comune.idProvincia === parseInt(selectedProvinciaId));
-
-    comuniFiltrati.forEach(comune => {
-        const option = document.createElement("option");
-        option.value = comune.id;
-        option.textContent = comune.nome;
-        comuniSelect.appendChild(option);
-    });
-}
-
-// Event listener per il cambio di nazione
-document.getElementById("registerNazione").addEventListener("change", function () {
-    const selectedCountry = this.value;
-
-    if (selectedCountry === "Italia") {
-        populateProvince(); // Mostra le province italiane
-    } else {
-        // Svuota province e comuni
-        document.getElementById("registerProvincia").innerHTML = '<option value="" disabled selected>Seleziona una provincia</option>';
-        document.getElementById("registerComune").innerHTML = '<option value="" disabled selected>Seleziona un comune</option>';
-    }
-});
-
-// Event listener per il cambio di provincia
-document.getElementById("registerProvincia").addEventListener("change", function () {
-    const selectedProvinciaId = this.value;
-    populateComuni(selectedProvinciaId); // Mostra i comuni della provincia selezionata
-});
-
-// Carica i dati al caricamento della pagina
-document.addEventListener("DOMContentLoaded", async () => {
-    await loadProvinceAndComuni(); // Carica province e comuni
-    updateHeroSection(); // Mostra la Hero Section corretta
-    populateEuropeanCountries(); // Popola il menu delle nazioni
-});
 
 // 🔹 Funzione per il login tramite API Flask
 async function loginUser() {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-
+    const email = $("#loginEmail").val();
+    const password = $("#loginPassword").val();
+    
     try {
         const response = await fetch(`${API_URL}/api/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
-
+        
         const data = await response.json();
-
+        
         if (response.ok) {
-            localStorage.setItem("userToken", data.token); // Salva il token JWT
-            localStorage.setItem("userName", data.name); // Salva il nome dell'utente
-            updateHeroSection(); // Aggiorna la sezione dopo il login
-            closeModal(loginModal);
+            localStorage.setItem("userToken", data.token);
+            localStorage.setItem("userName", data.name);
+            updateHeroSection();
+            closeModal("#loginModal");
         } else {
             alert(data.message);
         }
@@ -281,12 +121,89 @@ async function loginUser() {
 function logoutUser() {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userName");
-    updateHeroSection(); // Aggiorna la sezione dopo il logout
+    updateHeroSection();
 }
 
-// Chiama questa funzione al caricamento della pagina
-document.addEventListener("DOMContentLoaded", async () => {
-    await loadProvinceAndComuni(); // Carica i dati di province e comuni
-    updateHeroSection(); // Aggiorna la Hero Section
-    populateEuropeanCountries(); // Popola il menu delle nazioni
+// 🔹 Funzione per caricare province e comuni
+async function loadProvinceAndComuni() {
+    try {
+        const [provinceResponse, comuniResponse] = await Promise.all([
+            fetch("province.json"), fetch("comuni.json")
+        ]);
+        
+        if (!provinceResponse.ok || !comuniResponse.ok) throw new Error("Errore nel caricamento dati JSON");
+        
+        provinceData = await provinceResponse.json();
+        comuniData = await comuniResponse.json();
+    } catch (error) {
+        console.error("Errore durante il caricamento dei dati:", error);
+    }
+}
+
+// 🔹 Popola il menu delle province italiane
+function populateProvince() {
+    const provinceSelect = $("#registerProvincia").html('<option value="" disabled selected>Seleziona una provincia</option>');
+    
+    provinceData.forEach(province => {
+        provinceSelect.append(`<option value="${province.id}">${province.nome} (${province.siglaProvincia})</option>`);
+    });
+    
+    $("#registerComune").html('<option value="" disabled selected>Seleziona un comune</option>');
+}
+
+// 🔹 Popola il menu dei comuni in base alla provincia selezionata
+function populateComuni(selectedProvinciaId) {
+    const comuniSelect = $("#registerComune").html('<option value="" disabled selected>Seleziona un comune</option>');
+    
+    comuniData.filter(comune => comune.idProvincia == selectedProvinciaId).forEach(comune => {
+        comuniSelect.append(`<option value="${comune.id}">${comune.nome}</option>`);
+    });
+}
+
+// 🔹 Eventi per selezione nazione e provincia
+$("#registerNazione").change(function () {
+    $("#registerProvincia, #registerComune").html('<option value="" disabled selected>Seleziona</option>');
+    if ($(this).val() === "Italia") populateProvince();
 });
+
+$("#registerProvincia").change(function () {
+    populateComuni($(this).val());
+});
+
+// 🔹 Carica le nazioni europee
+async function populateEuropeanCountries() {
+    try {
+        const response = await fetch("/european_countries.json");
+        if (!response.ok) throw new Error("Impossibile caricare il file JSON");
+        
+        const countries = await response.json();
+        const countrySelect = $("#registerNazione").html('<option value="" disabled selected>Seleziona una nazione</option>');
+        
+        countries.forEach(country => {
+            countrySelect.append(`<option value="${country}">${country}</option>`);
+        });
+    } catch (error) {
+        console.error("Errore durante il caricamento delle nazioni:", error);
+    }
+}
+
+function loadProfessionals() {
+    $.get(`${API_URL}/api/professionals`, function (data) {
+        let teamContainer = $(".team-members");
+        teamContainer.empty(); // Pulisce il contenitore prima di aggiungere i nuovi dati
+
+        data.forEach(professional => {
+            let memberCard = `
+                <div class="team-member">
+                    <img src="images/${professional.immagine}" alt="${professional.nome}">
+                    <h4>${professional.nome}</h4>
+                    <span>${professional.specializzazione}</span>
+                    <a class="verifica-disponibilita" data-doctorid="${professional.id}" href="#">Verifica disponibilità</a>
+                </div>
+            `;
+            teamContainer.append(memberCard);
+        });
+    }).fail(function () {
+        console.error("Errore nel caricamento dei professionisti.");
+    });
+}

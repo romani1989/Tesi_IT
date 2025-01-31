@@ -24,6 +24,7 @@ header {
 header .logo h1 {
     font-size: 2.5rem;
     color: #333;
+    font-weight: bold;
 }
 
 header .logo h1 span {
@@ -32,7 +33,7 @@ header .logo h1 span {
 
 
 /* Titolo "Come Funziona" */
-.how-it-works p {
+.how-it-works p, .section-team p {
     font-size: 2.5rem;
     color: #333;
     text-align: center;
@@ -83,13 +84,13 @@ header .logo h1 span {
     margin-top: 10px; /* Spazio tra il cerchio e il testo */
     font-size: 1rem;
     font-weight: bold;
-    color: #333;
+    color: white;
     text-transform: uppercase;
 }
 
 
 /* Evidenziazione di una parola specifica (opzionale) */
-.how-it-works p span {
+.how-it-works p span, .section-team p span {
     color: #8BB4FF; /* Colore evidenziato per alcune parole */
 }
 
@@ -297,6 +298,7 @@ header .logo h1 span {
 /* Distanza uniforme tra il testo e il pulsante */
 .hero-section .content p {
     margin-bottom: 2px;
+    color: white;
 }
 
 /* Pulsanti (CTA) */
@@ -316,8 +318,13 @@ header .logo h1 span {
 
 /* Hero Section 1 */
 .hero-section-1 {
-    background-image: url('images/Doc.png'); /* Immagine della prima sezione */
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)) ,url('images/Doc.png'); /* Immagine della prima sezione */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
+
 .hero-section-1.show {
     display: flex;
     opacity: 1;
@@ -325,7 +332,11 @@ header .logo h1 span {
 
 /* Hero Section 2 */
 .hero-section-2 {
-    background-image: url('images/Book.jpeg'); /* Immagine della seconda sezione */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(images/Book.jpeg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+     /* Immagine della seconda sezione */
 }
 
 .hero-section-2.show {
@@ -338,6 +349,7 @@ header .logo h1 span {
     color: black;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
 
 /* Professionals Section */
 .professionals {

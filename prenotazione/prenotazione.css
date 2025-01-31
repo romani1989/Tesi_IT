@@ -74,7 +74,7 @@ header {
     display: flex;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 /* 🔹 Box per ogni specialista */
@@ -169,6 +169,14 @@ footer {
     font-size: 1rem;
     margin-top: 40px;
 }
+
+.background{
+    background-image:url(/images/background.png) ; 
+    background-position: left top;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 
 /* 🔹 Responsività */
 @media (max-width: 768px) {
