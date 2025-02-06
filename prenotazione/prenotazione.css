@@ -1,190 +1,116 @@
 /* Stili generali */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: 'Work Sans', sans-serif;
     background-color: #f9f9f9;
     color: #333;
-    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-/* HEADER - Logo Healthy Hub */
-header {
-    background-color: white;
+/* Layout principale */
+.booking-wrapper {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* Sezione sinistra - Info Medico */
+.doctor-info {
     text-align: center;
-    border-bottom: 2px solid #ddd;
+    max-width: 300px;
+}
+
+.doctor-photo {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.specialization-text {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Sezione destra - Calendario e orari */
+.booking-section {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Logo con doppio colore */
-.logo h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+.calendar-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.logo h1 span {
-    color: #5A8DEE; /* Blu per "Hub" */
-}
-
-/* 🔹 Pulsante "Torna alla Home" */
-#backToHome {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #5A8DEE;
-    color: white;
-    border: none;
-    border-radius: 20px;
+#calendar {
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    background: white;
+    padding: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.fc { 
+    width: 100%;
+    max-width: 600px;
+}
+
+.fc-scrollgrid-sync-table, .fc-daygrid-body, .fc-daygrid-day-frame {
+    overflow: hidden !important;
+}
+
+.fc-view-harness {
+    overflow: hidden !important;
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     margin-top: 10px;
 }
 
-#backToHome:hover {
-    background-color: #3b6ad8;
-    transform: scale(1.05);
-}
-
-/* 🔹 Sezione Specialisti */
-.section-team {
-    padding: 50px 20px;
-    text-align: center;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    margin-top: 30px;
-}
-
-.section-team h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: #333;
-}
-
-/* 🔹 Contenitore membri del team */
-.team-members {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: nowrap;
-}
-
-/* 🔹 Box per ogni specialista */
-.team-member {
-    width: 220px;
-    background-color: white;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.team-member:hover {
-    transform: translateY(-5px);
-}
-
-/* 🔹 Immagini specialisti */
-.team-member img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-/* 🔹 Evidenzia il professionista selezionato */
-.team-member.selected {
-    border: 3px solid #5A8DEE;
-    box-shadow: 0px 4px 10px rgba(90, 141, 238, 0.7);
-}
-
-/* 🔹 Sezione Prenotazione */
-.booking-section {
-    background: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    margin: 50px auto 40px;
-    text-align: center;
-}
-
-.booking-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Campi di input */
-.booking-section label {
-    font-size: 1rem;
-    font-weight: bold;
-    display: block;
-    margin: 10px 0 5px;
-    text-align: left;
-}
-
-.booking-section input {
-    width: 100%;
+.time-slot {
+    background: #f1f1f1;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-/* 🔹 Pulsante Prenotazione */
-#confirmBookingBtn {
-    width: 100%;
-    background-color: #5A8DEE;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-#confirmBookingBtn:hover {
-    background: #3b6ad8;
-}
-
-/* 🔹 Footer */
-footer {
-    background-color: #5A8DEE;
-    color: white;
     text-align: center;
-    padding: 15px 0;
     font-size: 1rem;
-    margin-top: 40px;
+    transition: all 0.3s;
 }
 
-.background{
-    background-image:url(/images/background.png) ; 
-    background-position: left top;
-    background-size: contain;
-    background-repeat: no-repeat;
+.time-slot:hover {
+    background: #5A8DEE;
+    color: white;
 }
 
+.time-slot.selected {
+    background: #0056b3;
+    color: white;
+}
 
-/* 🔹 Responsività */
-@media (max-width: 768px) {
-    .booking-section {
-        width: 90%;
-    }
-    .team-members {
-        flex-direction: column;
-        align-items: center;
-    }
+/* Pulsanti azione */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+    min-height: 0em !important;
 }
