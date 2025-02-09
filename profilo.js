@@ -1,15 +1,15 @@
-const API_URL = "http://127.0.0.1:5000"; // Assicurati che il backend sia attivo
+const API_URL = "http://127.0.0.1:5000"; 
 const userId = localStorage.getItem("userId");
 
 console.log("ID utente salvato nel localStorage:", userId);
 
-// Controlla se l'utente è loggato
+
 if (!userId) {
     alert("Devi essere loggato per accedere al profilo.");
-    window.location.href = "index.html"; // Torna alla home se non loggato
+    window.location.href = "index.html"; 
 }
 
-// Funzione per recuperare i dati dell'utente dal backend
+
 async function loadUserProfile() {
     try {
         const response = await fetch(`${API_URL}/api/users/${userId}`);
@@ -20,7 +20,7 @@ async function loadUserProfile() {
         const userData = await response.json();
         console.log("Dati utente ricevuti:", userData);
 
-        // Assicuriamoci che gli elementi esistano prima di modificarli
+        
         if (document.getElementById("profileDetails")) {
             document.getElementById("profileDetails").innerHTML = `
                 <div class="profile-card">
@@ -33,7 +33,7 @@ async function loadUserProfile() {
             `;
         }
 
-        // Popoliamo anche la sezione "I miei dati"
+        
         updateProfileSection(userData);
 
     } catch (error) {
@@ -44,7 +44,7 @@ async function loadUserProfile() {
     }
 }
 
-// Funzione per riempire la sezione "I miei dati"
+
 function updateProfileSection(userData) {
     const fields = {
         "userNome": userData.nome,
@@ -69,45 +69,78 @@ function updateProfileSection(userData) {
     }
 }
 
-// Aspettiamo che il DOM sia caricato prima di eseguire il codice
+
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Pagina caricata, avvio caricamento profilo...");
-    loadUserProfile(); // Chiamiamo la funzione per caricare i dati utente
+    loadUserProfile(); 
+    loadUserAppointments(); 
 
-    // Bottone per tornare alla home
+    
     const backHomeBtn = document.getElementById("backHomeBtn");
     if (backHomeBtn) {
         backHomeBtn.addEventListener("click", function () {
-            window.location.href = "index.html"; // Torna alla Home
+            window.location.href = "index.html"; 
         });
     }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const userId = localStorage.getItem("userId");
 
+async function loadUserAppointments() {
     if (!userId) {
-        alert("Devi essere loggato per accedere al profilo.");
-        window.location.href = "index.html"; 
+        console.error("Nessun userId trovato. L'utente deve essere loggato.");
         return;
     }
 
-    // Recupera gli appuntamenti dell'utente
-    fetch(`http://127.0.0.1:5000/api/reservations/user/${userId}`)
-        .then(response => response.json())
-        .then(appointments => {
-            const appointmentsList = document.getElementById("userAppointments");
-            appointmentsList.innerHTML = ""; // Svuota la lista
+    try {
+        const response = await fetch(`${API_URL}/api/reservations/user/${userId}`);
+        const data = await response.json();
+        let appointmentsContainer = document.getElementById("userAppointments");
+        appointmentsContainer.innerHTML = "";
 
-            if (appointments.length === 0) {
-                appointmentsList.innerHTML = "<li>Nessun appuntamento trovato.</li>";
-            } else {
-                appointments.forEach(app => {
-                    const li = document.createElement("li");
-                    li.innerHTML = `Data:<strong class="me-4">${app.data}</strong>  Orario : ${app.orario} - ${app.professional_name}`;
-                    appointmentsList.appendChild(li);
+        if (data.length > 0) {
+            data.forEach(app => {
+                let li = document.createElement("li");
+                li.innerHTML = `
+                    <strong class="me-4">Data:</strong> ${app.data} 
+                    <strong>Orario:</strong> ${app.orario} - ${app.professional_name}
+                    <button class="btn btn-danger btn-sm delete-btn" data-id="${app.id}">Elimina</button>
+                `;
+                appointmentsContainer.appendChild(li);
+            });
+
+            
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let appointmentId = this.getAttribute("data-id");
+                    deleteAppointment(appointmentId);
                 });
-            }
-        })
-        .catch(error => console.error("Errore nel recupero degli appuntamenti:", error));
-});
+            });
+
+        } else {
+            appointmentsContainer.innerHTML = "<p class='text-muted'>Nessun appuntamento trovato.</p>";
+        }
+    } catch (error) {
+        console.error("Errore nel caricamento degli appuntamenti:", error);
+    }
+}
+
+
+async function deleteAppointment(appointmentId) {
+    if (!confirm("Sei sicuro di voler cancellare questo appuntamento?")) return;
+
+    try {
+        const response = await fetch(`${API_URL}/api/reservations/${appointmentId}`, {
+            method: "DELETE",
+        });
+
+        if (response.ok) {
+            alert("Appuntamento eliminato con successo!");
+            loadUserAppointments(); 
+        } else {
+            alert("Errore durante l'eliminazione.");
+        }
+    } catch (error) {
+        console.error("Errore durante l'eliminazione:", error);
+        alert("Errore durante l'eliminazione.");
+    }
+}

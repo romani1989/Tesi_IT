@@ -1,4 +1,4 @@
-/* Stili generali */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,11 +9,11 @@ body {
     font-family: 'Work Sans', sans-serif;
     background-color: #f9f9f9;
     color: whitesmoke;
-    font-weight: bold; /* Rende il testo in grassetto */
-    font-style: revert; /* Mantiene lo stile del font */
+    font-weight: bold; 
+    font-style: revert; 
 }
 
-/* Header */
+
 header {
     background-color: transparent;
     padding: 5px 0;
@@ -32,7 +32,7 @@ header .logo h1 span {
 }
 
 
-/* Titolo "Come Funziona" */
+
 .how-it-works p, .section-team p {
     font-size: 2.5rem;
     color: #333;
@@ -41,47 +41,47 @@ header .logo h1 span {
     margin-bottom: 40px;
 }
 
-/* Contenitore principale */
+
 .steps-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px; /* Spazio tra i cerchi */
+    gap: 40px; 
     margin: 0 auto;
     padding: 20px 0;
 }
 
-/* Cerchio con immagine di sfondo */
+
 .circle {
     width: 180px;
     height: 180px;
     background: url('images/registrati.jpg') no-repeat center center;
-    background-size: cover; /* Adatta l'immagine al cerchio */
-    border-radius: 50%; /* Rende il contenitore circolare */
+    background-size: cover; 
+    border-radius: 50%; 
     display: flex;
-    flex-direction: column; /* Posiziona testo e numero in verticale */
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     position: relative;
-    transition: transform 0.3s ease; /* Effetto al passaggio del mouse */
+    transition: transform 0.3s ease; 
 }
 
-/* Effetto hover */
+
 .circle:hover {
-    transform: scale(1.05); /* Leggera espansione al passaggio del mouse */
+    transform: scale(1.05); 
 }
 
-/* Numero al centro */
+
 .number {
-    font-size: 3.5rem; /* Dimensione del numero */
+    font-size: 3.5rem; 
     color: white;
     font-weight: bold;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Ombra per rendere il numero leggibile */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
 }
 
-/* Testo sotto il numero */
+
 .circle p {
-    margin-top: 10px; /* Spazio tra il cerchio e il testo */
+    margin-top: 10px; 
     font-size: 1rem;
     font-weight: bold;
     color: white;
@@ -89,12 +89,12 @@ header .logo h1 span {
 }
 
 
-/* Evidenziazione di una parola specifica (opzionale) */
+
 .how-it-works p span, .section-team p span {
-    color: #8BB4FF; /* Colore evidenziato per alcune parole */
+    color: #8BB4FF; 
 }
 
-/* Call-to-Action Button (Login + Registrati) */
+
 .cta-button {
     background-color: #8BB4FF;
     color: white;
@@ -110,9 +110,9 @@ header .logo h1 span {
     background-color: #3b6ad8;
 }
 
-/* 🔹 Nasconde le modali solo all'avvio */
+
 .modal {
-    display: flex;  /* Mantiene il comportamento flex */
+    display: flex;  
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -127,13 +127,13 @@ header .logo h1 span {
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
-/* 🔹 Quando la modale è aperta */
+
 .modal.show {
     visibility: visible;
     opacity: 1;
 }
 
-/* 🔹 Stili generali per la modale */
+
 .modal {
     display: none;
     position: fixed;
@@ -142,31 +142,31 @@ header .logo h1 span {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Sfondo scuro trasparente */
+    background-color: rgba(0, 0, 0, 0.5); 
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
 }
 
-/* 🔹 Contenuto della modale */
+
 .modal-content-c {
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
-    width: 650px; /* Allargata per maggiore leggibilità */
+    width: 650px; 
     max-width: 95%;
     text-align: left;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* 🔹 Modale di registrazione con SCROLL (senza footer fisso) */
+
 #registerModal .modal-content-c {
-    max-height: 80vh; /* Imposta un'altezza massima */
-    overflow-y: auto; /* Abilita la barra di scorrimento verticale */
+    max-height: 80vh; 
+    overflow-y: auto; 
 }
 
-/* Personalizzazione scrollbar */
+
 #registerModal .modal-content-c::-webkit-scrollbar {
     width: 8px;
 }
@@ -180,7 +180,7 @@ header .logo h1 span {
     border-radius: 5px;
 }
 
-/* 🔹 Header della Modale */
+
 .modal-header-custom {
     font-size: 1.8rem;
     font-weight: bold;
@@ -189,7 +189,7 @@ header .logo h1 span {
     color: #333;
 }
 
-/* 🔹 Etichette dei campi */
+
 .modal-body label {
     font-size: 1rem;
     font-weight: bold;
@@ -198,7 +198,6 @@ header .logo h1 span {
     color: #333;
 }
 
-/* 🔹 Campi di input */
 .modal-body input,
 .modal-body select {
     width: 100%;
@@ -210,7 +209,7 @@ header .logo h1 span {
     background-color: #f8f8f8;
 }
 
-/* 🔹 Gruppi di input affiancati */
+
 .input-group {
     display: flex;
     gap: 15px;
@@ -218,12 +217,12 @@ header .logo h1 span {
     flex-wrap: nowrap;
 }
 
-/* 🔹 Ogni input occupa metà spazio nel gruppo */
+
 .input-group div {
     width: 50%;
 }
 
-/* 🔹 Footer della modale */
+
 .modal-footer {
     display: flex;
     justify-content: space-between;
@@ -231,7 +230,7 @@ header .logo h1 span {
     gap: 10px;
 }
 
-/* 🔹 Pulsanti */
+
 .modal-footer button {
     flex: 1;
     padding: 12px;
@@ -243,37 +242,37 @@ header .logo h1 span {
     transition: all 0.3s ease;
 }
 
-/* 🔹 Stile pulsante Chiudi (Login e Registrazione) */
+
 #closeRegisterBtn,
 #closeLoginBtn {
     background-color: #ccc;
     color: black;
 }
 
-/* 🔹 Stile pulsante Registrati */
+
 .modal-footer button.cta-button {
     background-color: #4f8dfc;
     color: white;
 }
 
-/* 🔹 Effetto Hover */
+
 .modal-footer button:hover {
     opacity: 0.8;
 }
 
 
-/* Contenitore Hero */
+
 .hero-container {
-    display: flex; /* Usa Flexbox per disporre gli elementi in linea */
-    justify-content: space-between; /* Spaziatura uniforme tra le sezioni */
-    gap: 20px; /* Spazio tra le sezioni */
+    display: flex; 
+    justify-content: space-between; 
+    gap: 20px; 
     margin: 20px;
 }
 
-/* Hero Section Generale */
+
 .hero-section {
-    flex: 1; /* Entrambe le sezioni occupano lo stesso spazio */
-    height: 70vh; /* Altezza delle sezioni */
+    flex: 1; 
+    height: 70vh; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -281,28 +280,28 @@ header .logo h1 span {
     background-position: center;
     color: black;
     text-align: center;
-    border-radius: 10px; /* Angoli arrotondati */
-    position: relative; /* Aggiunto per posizionamento assoluto dei bottoni */
+    border-radius: 10px; 
+    position: relative; 
 }
 
-/* Contenitore interno per testo e pulsante */
+
 .hero-section .content {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Allinea tutto al centro */
+    align-items: center; 
     justify-content: center;
-    gap: 15px; /* Aggiunto spazio uniforme tra testo e pulsante */
+    gap: 15px; 
     text-align: center;
     width: 80%;
 }
 
-/* Distanza uniforme tra il testo e il pulsante */
+
 .hero-section .content p {
     margin-bottom: 2px;
     color: white;
 }
 
-/* Pulsanti (CTA) */
+
 .cta-button {
     display: inline-block;
     padding: 8px 18px;
@@ -317,7 +316,7 @@ header .logo h1 span {
     transform: scale(1.05);
 }
 
-/* Hero Section 1 */
+
 .hero-section-1 {
     background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)) ,url('images/Doc.png'); /* Immagine della prima sezione */
     background-position: center;
@@ -331,13 +330,12 @@ header .logo h1 span {
     opacity: 1;
 }
 
-/* Hero Section 2 */
+
 .hero-section-2 {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(images/Book.jpeg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-     /* Immagine della seconda sezione */
 }
 
 .hero-section-2.show {
@@ -352,7 +350,7 @@ header .logo h1 span {
 }
 
 
-/* Professionals Section */
+
 .professionals {
     background-color: #8BB4FF;
     height: 75px;
@@ -398,16 +396,16 @@ header .logo h1 span {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Contenitore per i box */
+
 .steps-container {
-    display: flex; /* Usa Flexbox per disporre i box in linea */
-    gap: 20px; /* Spazio tra i box */
-    margin: 20px 0; /* Margine superiore e inferiore */
+    display: flex; 
+    gap: 20px; 
+    margin: 20px 0; 
 }
 
-/* Ogni box step */
+
 .step {
-    width: calc(33.33% - 20px); /* Adatta larghezza per 3 box con spazio tra loro */
+    width: calc(33.33% - 20px); 
     text-align: center;
     background: #fff;
     border: 2px solid #e0e0e0;
@@ -416,20 +414,20 @@ header .logo h1 span {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Immagini */
+
 .step img {
-    width: 100%; /* L'immagine occupa tutta la larghezza del box */
+    width: 100%; 
     height: auto;
     border-radius: 10px;
     margin-bottom: 10px;
 }
 
 
-/* Team Section */
+
 .section-team {
     padding: 50px 20px;
     text-align: center;
-    }
+}
 
 .section-team h2 {
     font-size: 2rem;
@@ -497,7 +495,7 @@ header .logo h1 span {
     background-repeat: no-repeat;
 }
 
-/* Stili specifici per la pagina profilo */
+
 .profilo-container {
     max-width: 600px;
     background: white;
@@ -508,7 +506,7 @@ header .logo h1 span {
     margin: 50px auto;
 }
 
-/* Personalizza i campi del profilo */
+
 .profilo-info {
     font-size: 1.1rem;
     font-weight: bold;

@@ -1,4 +1,4 @@
-/* Stili generali */
+
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +15,7 @@ body {
     text-align: center;
 }
 
-/* Header */
+
 header {
     background-color: transparent;
     padding: 10px 0;
@@ -33,7 +33,7 @@ header .logo h1 span {
     color: #8BB4FF;
 }
 
-/* Bottone Home */
+
 #homeBtn {
     background-color: #8BB4FF;
     color: white;
@@ -50,14 +50,14 @@ header .logo h1 span {
     background-color: #3b6ad8;
 }
 
-/* Contenitore principale */
+
 #dashboard {
     width: 90%;
     margin: auto;
     padding: 20px;
 }
 
-/* Layout con due colonne */
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -65,7 +65,7 @@ header .logo h1 span {
     flex-wrap: wrap;
 }
 
-/* Contenitore Profilo (Sinistra) */
+
 .profile-container {
     width: 48%;
     background: white;
@@ -75,7 +75,7 @@ header .logo h1 span {
     text-align: left;
 }
 
-/* Informazioni del profilo */
+
 .profile-container p {
     font-size: 1rem;
     font-weight: bold;
@@ -83,7 +83,7 @@ header .logo h1 span {
     margin-bottom: 10px;
 }
 
-/* Contenitore Appuntamenti (Destra) */
+
 .appointments-container {
     width: 48%;
     background: white;
@@ -93,14 +93,14 @@ header .logo h1 span {
     text-align: left;
 }
 
-/* Titoli delle sezioni */
+
 h2 {
     text-align: center;
     margin-bottom: 15px;
     color: #5A8DEE;
 }
 
-/* Lista appuntamenti */
+
 #appointmentList {
     list-style: none;
     padding: 0;
@@ -116,7 +116,7 @@ h2 {
     color: #333;
 }
 
-/* Bottone Modifica */
+
 .profilo-button {
     display: block;
     width: 100%;
@@ -134,7 +134,7 @@ h2 {
     background-color: #5A8DEE;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

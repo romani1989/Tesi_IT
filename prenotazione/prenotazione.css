@@ -1,4 +1,4 @@
-/* Stili generali */
+
 body {
     font-family: 'Work Sans', sans-serif;
     background-image: url(/images/background.png);
@@ -13,7 +13,7 @@ body {
     padding: 20px;
 }
 
-/* Layout principale */
+
 .booking-wrapper {
     display: flex;
     width: 90%;
@@ -23,7 +23,7 @@ body {
     gap: 30px;
 }
 
-/* Sezione sinistra - Info Medico */
+
 .doctor-info {
     text-align: center;
     max-width: 300px;
@@ -40,7 +40,7 @@ body {
     color: #555;
 }
 
-/* Sezione destra - Calendario e orari */
+
 .booking-section {
     display: flex;
     flex-direction: column;
@@ -92,16 +92,16 @@ body {
 }
 
 .time-slot:hover {
-    background: #5A8DEE;
+    background: #8BB4FF;
     color: white;
 }
 
 .time-slot.selected {
-    background: #0056b3;
+    background: #8BB4FF;
     color: white;
 }
 
-/* Pulsanti azione */
+
 .action-buttons {
     margin-top: 20px;
     display: flex;
@@ -121,25 +121,25 @@ body {
 }
 
 
-/* Evidenzia le date disponibili */
+
 .fc-daygrid-day.available-day {
-    background-color: rgba(0, 123, 255, 0.2); /* Azzurro chiaro */
-    border: 2px solid #007bff; /* Bordo azzurro */
+    background-color: rgba(0, 123, 255, 0.2); 
+    border: 2px solid #0062ffe2; 
     font-weight: bold;
     color: #007bff;
     transition: all 0.3s ease-in-out;
 }
 
-/* Quando si passa il mouse sopra una data disponibile */
+
 .fc-daygrid-day.available-day:hover {
-    background-color: rgba(0, 123, 255, 0.4); /* Sfondo più intenso */
+    background-color: rgba(47, 0, 255, 0.4); 
     cursor: pointer;
 }
 
-/* Evidenzia la data selezionata */
+
 .fc-daygrid-day.fc-day-selected {
-    background-color: #007bff !important; /* Azzurro più scuro */
+    background-color: #8BB4FF !important; 
     color: white !important;
     font-weight: bold;
-    border: 2px solid #0056b3; /* Bordo più scuro */
+    border: 2px solid #0056b3; 
 }

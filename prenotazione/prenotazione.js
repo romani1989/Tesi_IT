@@ -1,10 +1,10 @@
 const API_URL = "http://127.0.0.1:5000";
 
-// 📌 Recupera l'ID del professionista dalla URL
+
 const urlParams = new URLSearchParams(window.location.search);
 const doctorId = urlParams.get("doctorid");
 
-// 📌 Variabili per gli elementi della pagina
+
 const timeSlotsContainer = document.getElementById("timeSlots");
 const confirmBookingBtn = document.getElementById("confirmBookingBtn");
 const backToHomeBtn = document.getElementById("backToHome");
@@ -15,16 +15,16 @@ const doctorImage = document.getElementById("doctorImage");
 document.addEventListener('DOMContentLoaded', async function () {
     var calendarEl = document.getElementById('calendar');
     
-    // 📌 Recupera le date disponibili dal server
+    
     let availableDates = await fetchAvailableDates();
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         height: 500,
-        locale: 'IT', // Imposta altezza fissa senza scroll
+        locale: 'IT', 
         selectable: true,
         validRange: {
-            start: new Date() // Impedisce la selezione di date passate
+            start: new Date() 
         },
         dateClick: function(info) {
             if (availableDates.includes(info.dateStr)) {
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     calendar.render();
 });
 
-// 📌 Funzione per recuperare le date disponibili
+
 async function fetchAvailableDates() {
     try {
         const response = await fetch(`${API_URL}/api/professionals/${doctorId}/disponibilita`);
@@ -61,7 +61,7 @@ async function fetchAvailableDates() {
     }
 }
 
-// 📌 Funzione per recuperare gli orari disponibili
+
 async function fetchAvailableTimes(doctorId, date) {
     try {
         const response = await fetch(`${API_URL}/api/professionals/${doctorId}/orari`, {
@@ -93,7 +93,7 @@ async function fetchAvailableTimes(doctorId, date) {
     }
 }
 
-// 📌 Funzione per salvare la prenotazione
+
 async function bookAppointment() {
     const selectedDate = document.querySelector(".fc-day-selected")?.getAttribute("data-date");
     const selectedTimeSlot = document.querySelector(".time-slot.selected");
@@ -133,7 +133,7 @@ async function bookAppointment() {
         const result = await response.json();
         if (response.ok) {
             alert("Prenotazione effettuata con successo!");
-            window.location.href = "../index.html"; // Reindirizza alla homepage
+            window.location.href = "../index.html"; 
         } else {
             alert(result.message);
         }
@@ -143,15 +143,15 @@ async function bookAppointment() {
     }
 }
 
-// 📌 Evento per salvare la prenotazione
+
 confirmBookingBtn.addEventListener("click", bookAppointment);
 
-// 📌 Evento per tornare alla home
+
 backToHomeBtn.addEventListener("click", () => {
     window.location.href = "../index.html";
 });
 
-// 📌 Dati dei professionisti
+
 const professionals = {
     1: { name: "Giuseppe Rossi", specialization: "Medico", image: "../images/Giuseppe.jpeg" },
     2: { name: "Gelsomina Bianchi", specialization: "Psicologa", image: "../images/Gelsomina.jpeg" },
@@ -161,7 +161,7 @@ const professionals = {
     6: { name: "Carmela Crilino", specialization: "Nutrizionista", image: "../images/Carmela.png" }
 };
 
-// 📌 Mostra i dati del professionista
+
 if (doctorId && professionals[doctorId]) {
     doctorName.textContent = professionals[doctorId].name;
     doctorSpecialization.textContent = professionals[doctorId].specialization;
@@ -169,3 +169,43 @@ if (doctorId && professionals[doctorId]) {
 } else {
     document.querySelector(".container").innerHTML = "<p class='text-danger'>Errore: Professionista non trovato</p>";
 }
+
+
+async function loadUserAppointments(userId) {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/api/reservations/user/${userId}`);
+        const data = await response.json();
+        let appointmentsContainer = document.getElementById("appointmentsList");
+        appointmentsContainer.innerHTML = "";
+
+        if (data.length > 0) {
+            data.forEach(appointment => {
+                let appointmentCard = document.createElement("div");
+                appointmentCard.classList.add("appointment-card");
+
+                appointmentCard.innerHTML = `
+                    <span><strong>Data:</strong> ${appointment.data}</span>
+                    <span><strong>Orario:</strong> ${appointment.orario} - ${appointment.professional_name}</span>
+                    <button class="btn btn-danger btn-sm delete-btn" data-id="${appointment.id}">Elimina</button>
+                `;
+
+                appointmentsContainer.appendChild(appointmentCard);
+            });
+
+            
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let appointmentId = this.getAttribute("data-id");
+                    deleteAppointment(appointmentId);
+                });
+            });
+
+        } else {
+            appointmentsContainer.innerHTML = "<p class='text-muted'>Nessun appuntamento trovato.</p>";
+        }
+    } catch (error) {
+        console.error("Errore nel caricamento degli appuntamenti:", error);
+    }
+}
+
+
