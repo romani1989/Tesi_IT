@@ -20,22 +20,83 @@
         </div>
         <button id="homeBtn" class="cta-button">Torna alla Home</button>
     </header>
-
+    
     <section id="dashboard">
         <div class="container">
             <div class="profile-container">
                 <h2>I miei dati</h2>
                 <form id="profileForm">
-                    <div><label>Nome:</label> <input type="text" id="userNomeInput" disabled></div>
-                    <div><label>Cognome:</label> <input type="text" id="userCognomeInput" disabled></div>
-                    <div><label>Data di Nascita:</label> <input type="date" id="userDataNascitaInput" disabled></div>
-                    <div><label>Sesso:</label> <input type="text" id="userSessoInput" disabled></div>
-                    <div><label>Nazione di Nascita:</label> <input type="text" id="userNazionediNascitaInput" disabled></div>
-                    <div><label>Provincia:</label> <input type="text" id="userProvinciaInput" disabled></div>
-                    <div><label>Comune:</label> <input type="text" id="userComuneInput" disabled></div>
-                    <div><label>Codice Fiscale:</label> <input type="text" id="userCodiceFiscaleInput" disabled></div>
-                    <div><label>Email:</label> <input type="email" id="userEmailInput" disabled></div>
-                    <div><label>Cellulare:</label> <input type="text" id="userCellulareInput" disabled></div>
+                    <div class="input-group">
+                        <div>
+                            <label for="registerNome">Nome:</label>
+                            <input type="text" id="registerNome" placeholder="Inserisci il tuo nome" required>
+                        </div>
+                        <div>
+                            <label for="registerCognome">Cognome:</label>
+                            <input type="text" id="registerCognome" placeholder="Inserisci il tuo cognome" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div>
+                            <label for="registerDataNascita">Data di nascita:</label>
+                            <input type="date" id="registerDataNascita" required>
+                        </div>
+                        <div>
+                            <label for="registerSesso">Sesso:</label>
+                            <select id="registerSesso" required>
+                                <option value="M">Maschio</option>
+                                <option value="F">Femmina</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div>
+                            <label for="registerNazione">Nazione di nascita:</label>
+                            <select id="registerNazione" required>
+                                <option value="" disabled selected>Seleziona la tua nazione</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="registerProvincia">Provincia:</label>
+                            <select id="registerProvincia" required>
+                                <option value="" disabled selected>Seleziona una provincia</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div>
+                            <label for="registerComune">Comune:</label>
+                            <select id="registerComune" required>
+                                <option value="" disabled selected>Seleziona un comune</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="registerCF">Codice Fiscale:</label>
+                            <input type="text" id="registerCF" placeholder="Inserisci il tuo codice fiscale" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div>
+                            <label for="registerEmail">Email:</label>
+                            <input type="email" id="registerEmail" placeholder="Inserisci la tua email" required>
+                        </div>
+                        <div>
+                            <label for="registerCellulare">Cellulare:</label>
+                            <input type="text" id="registerCellulare" placeholder="Inserisci il tuo numero di cellulare" required pattern="[0-9]+" title="Inserisci solo numeri">
+                        </div>
+                    </div>
+
+                    <!-- Checkbox per il consenso al trattamento dei dati personali -->
+                    <div class="form-check mt-3">
+                        <input type="checkbox" class="form-check-input" id="registerConsenso">
+                        <label class="form-check-label" for="registerConsenso">
+                            Acconsento al trattamento, da parte di Healthy Hub, dei miei dati personali per finalità di marketing diretto con modalità di contatto tradizionali e/o automatizzate
+                        </label>
+                    </div>
                 </form>
                 <button id="editBtn" class="btn btn-primary">Modifica</button>
                 <div class="action-buttons">
@@ -43,7 +104,7 @@
                     <button id="cancelBtn" class="btn btn-secondary">Annulla</button>
                 </div>
             </div>
-
+            
             <div class="appointments-container">
                 <h2>I miei appuntamenti</h2>
                 <ul id="userAppointments">
@@ -52,12 +113,13 @@
             </div>
         </div>
     </section>
-
-
+    
+    
     <script src="../profilo/profilo.js"></script>
-
+    
     <script>
         document.getElementById("homeBtn").addEventListener("click", function () {
             window.location.href = "../homepage/index.html";
         });
     </script>
+    

@@ -550,3 +550,32 @@ header .logo h1 span {
     line-height: 1.2;  /* Migliora la distanza tra le righe */
     color: #555;
 }
+
+.codice-fiscale-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+#registerCF {
+    width: 100%;
+    padding-right: 80px;  /* Spazio per il bottone interno */
+}
+
+.generate-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-5%);
+    background-color: #5A8DEE;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.generate-btn:hover {
+    background-color: #3b6ad8;
+}

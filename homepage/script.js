@@ -44,7 +44,7 @@ $(document).ready(async function () {
     
     
     $("#registerNome, #registerCognome, #registerDataNascita, #registerSesso, #registerComune").on("input change", function () {
-        generateCodiceFiscale();
+        ;
     });
 });
 
@@ -63,17 +63,7 @@ $(".verifica-disponibilita").click(function (e) {
 
 
 async function registerUser() {
-    const consenso = $("#registerConsenso").is(":checked");  // Verifica se la checkbox è selezionata
-
-    if (!consenso) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Consenso obbligatorio',
-            text: 'Devi acconsentire al trattamento dei dati personali per registrarti.',
-            confirmButtonText: 'OK'
-        });
-        return;
-    }
+    
 
     const userData = {
         nome: $("#registerNome").val(),
@@ -88,8 +78,8 @@ async function registerUser() {
         cellulare: $("#registerCellulare").val(),
         password: $("#registerPassword").val(),
         conferma_password: $("#registerConfirmPassword").val(),
-        consenso_trattamento_dati: true  // Aggiunge il consenso come `true`
-    };
+        consenso_trattamento_dati: $("#registerConsenso").is(":checked")  // Restituisce true se selezionato, altrimenti false
+};
 
     try {
         const response = await fetch(`${API_URL}/api/register`, {
@@ -344,3 +334,49 @@ function populateComuni(selectedProvinciaId) {
         comuniSelect.append(`<option value="${comune.id}">${comune.nome}</option>`);
     });
 }
+
+document.getElementById('generateCF').addEventListener('click', async function () {
+    const nome = $("#registerNome").val();
+    const cognome = $("#registerCognome").val();
+    const data_nascita = $("#registerDataNascita").val();
+    const sesso = $("#registerSesso").val();
+    const comune = await getCodiceCatastale($("#registerComune").val());
+    console.log("Codice Catastale:", comune);
+    if (!nome || !cognome || !data_nascita || !sesso || !comune) {
+        Swal.fire('Errore', 'Completa tutti i campi richiesti per generare il codice fiscale.', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/api/genera_codice_fiscale`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, cognome, data_nascita, sesso, comune })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            $("#registerCF").val(data.codice_fiscale);
+            Swal.fire('Successo', 'Codice fiscale generato correttamente!', 'success');
+        } else {
+            Swal.fire('Errore', data.message || 'Errore nella generazione del codice fiscale.', 'error');
+        }
+    } catch (error) {
+        console.error("Errore nella generazione del codice fiscale:", error);
+        Swal.fire('Errore', 'Errore di connessione. Riprova più tardi.', 'error');
+    }
+});
+
+
+async function getCodiceCatastale(comuneId) {
+    const comuniResponse = await fetch("/assets/json/comuni.json");  
+    if (!comuniResponse.ok) throw new Error("Errore nel caricamento dei dati comuni");
+
+    const comuniData = await comuniResponse.json();
+    const comune = comuniData.find(com => Number(com.id) === Number(comuneId));
+    
+    return comune ? comune.CodCatastale : "XXXX";  // Restituisce il codice catastale o "XXXX" se non trovato
+}
+
+
