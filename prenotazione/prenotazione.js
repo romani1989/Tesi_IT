@@ -103,17 +103,32 @@ async function bookAppointment() {
     console.log("Orario selezionato:", selectedTimeSlot ? selectedTimeSlot.textContent : "Nessuno");
 
     if (!userId) {
-        alert("Devi essere loggato per prenotare un appuntamento.");
+        Swal.fire({
+            icon: 'warning',
+            title: 'Attenzione',
+            text: 'Devi essere loggato per prenotare un appuntamento!',
+            confirmButtonText: 'OK'
+        });
         return;
     }
 
     if (!selectedDate || !selectedTimeSlot) {
-        alert("Seleziona una data e un orario per procedere!");
+        Swal.fire({
+            icon: 'warning',
+            title: 'Selezione incompleta',
+            text: 'Seleziona una data e un orario per procedere!',
+            confirmButtonText: 'OK'
+        });
         return;
     }
 
     if (!doctorId) {
-        alert("Errore: Professionista non trovato.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Errore',
+            text: 'Professionista non trovato.',
+            confirmButtonText: 'OK'
+        });
         return;
     }
 
@@ -131,15 +146,32 @@ async function bookAppointment() {
         });
 
         const result = await response.json();
+
         if (response.ok) {
-            alert("Prenotazione effettuata con successo!");
-            window.location.href = "../index.html"; 
+            Swal.fire({
+                icon: 'success',
+                title: 'Prenotazione confermata',
+                text: 'La tua prenotazione è stata effettuata con successo!',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "../homepage/index.html"; // Reindirizza alla homepage
+            });
         } else {
-            alert(result.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Errore nella prenotazione',
+                text: result.message || 'Si è verificato un errore durante la prenotazione.',
+                confirmButtonText: 'OK'
+            });
         }
     } catch (error) {
         console.error("Errore durante la prenotazione:", error);
-        alert("Si è verificato un errore durante la prenotazione.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Errore di connessione',
+            text: 'Si è verificato un errore durante la connessione al server. Riprova più tardi.',
+            confirmButtonText: 'OK'
+        });
     }
 }
 
@@ -148,23 +180,23 @@ confirmBookingBtn.addEventListener("click", bookAppointment);
 
 
 backToHomeBtn.addEventListener("click", () => {
-    window.location.href = "../index.html";
+    window.location.href = "/homepage/index.html";
 });
 
-
 const professionals = {
-    1: { name: "Giuseppe Rossi", specialization: "Medico", image: "../images/Giuseppe.jpeg" },
-    2: { name: "Gelsomina Bianchi", specialization: "Psicologa", image: "../images/Gelsomina.jpeg" },
-    3: { name: "Guglielmo Verdi", specialization: "Psicologo", image: "../images/Guglielmo.png" },
-    4: { name: "Vincenzo Esposito", specialization: "Medico", image: "../images/Vincenzo.png" },
-    5: { name: "Elena Cimmino", specialization: "Nutrizionista", image: "../images/Elena.png" },
-    6: { name: "Carmela Crilino", specialization: "Nutrizionista", image: "../images/Carmela.png" }
+    1: { name: "Giuseppe Rossi", specialization: "Medicina generale e longevità", experience: "10 anni +", image: "/assets/images/Giuseppe.jpeg" },
+    2: { name: "Gelsomina Bianchi", specialization: "Psicologa specializzata in stress lavoro e burnout", experience: "15 anni +", image: "/assets/images/Gelsomina.jpeg" },
+    3: { name: "Guglielmo Verdi", specialization: "Master in Psicologia dello Sport", experience: "30 anni +", image: "/assets/images/Guglielmo.png" },
+    4: { name: "Vincenzo Esposito", specialization: "Medicina preventiva ", experience: "32 anni +", image: "/assets/images/Vincenzo.png" },
+    5: { name: "Elena Cimmino", specialization: "Specializzata in nutrizione sportiva", experience: "20 anni +", image: "/assets/images/Elena.png" },
+    6: { name: "Carmela Crilino", specialization: "Nutrizionista funzionale", experience: "18 anni +", image: "/assets/images/Carmela.png" }
 };
 
 
 if (doctorId && professionals[doctorId]) {
     doctorName.textContent = professionals[doctorId].name;
     doctorSpecialization.textContent = professionals[doctorId].specialization;
+    document.getElementById("doctorExperience").textContent = professionals[doctorId].experience;
     doctorImage.src = professionals[doctorId].image;
 } else {
     document.querySelector(".container").innerHTML = "<p class='text-danger'>Errore: Professionista non trovato</p>";
@@ -207,5 +239,7 @@ async function loadUserAppointments(userId) {
         console.error("Errore nel caricamento degli appuntamenti:", error);
     }
 }
+
+
 
 

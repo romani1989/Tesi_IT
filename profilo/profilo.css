@@ -1,0 +1,206 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Work Sans', sans-serif;
+    background-image: url(/assets/images/background.png);
+    background-position: left;
+    color: #333;
+    text-align: center;
+}
+
+
+header {
+    background-color: transparent;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+}
+
+header .logo h1 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: bold;
+}
+
+header .logo h1 span {
+    color: #8BB4FF;
+}
+
+
+#homeBtn {
+    background-color: #8BB4FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 10px auto;
+}
+
+#homeBtn:hover {
+    background-color: #3b6ad8;
+}
+
+
+#dashboard {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+
+.profile-container {
+    width: 48%;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+
+.profile-container p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+.appointments-container {
+    width: 48%;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #5A8DEE;
+}
+
+
+#appointmentList {
+    list-style: none;
+    padding: 0;
+}
+
+#appointmentList li {
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: #333;
+}
+
+
+.profilo-button {
+    display: block;
+    width: 100%;
+    background-color: #5A8DEE;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.profilo-button:hover {
+    background-color: #5A8DEE;
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-container,
+    .appointments-container {
+        width: 100%;
+    }
+}
+
+
+.appointments-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.appointments-container h2 {
+    text-align: center;
+    color: #5A8DEE;
+}
+
+#userAppointments {
+    list-style: none;
+    padding: 0;
+}
+
+#userAppointments li {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.status {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #5A8DEE;
+}
+
+#editBtn {
+    display: block;
+    margin: 20px auto; 
+    border-radius: 20px;
+    background-color: #8BB4FF;
+    border: none;
+}
+
+
+#editBtn:hover {
+    background-color: #0056b3; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.action-buttons {
+    display: none; /* Nascondi inizialmente */
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.action-buttons.show {
+    display: flex; /* Mostra quando aggiungi la classe 'show' */
+}
+
