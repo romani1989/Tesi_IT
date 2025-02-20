@@ -64,7 +64,7 @@ $(".verifica-disponibilita").click(function (e) {
 
 async function registerUser() {
     
-
+    
     const userData = {
         nome: $("#registerNome").val(),
         cognome: $("#registerCognome").val(),
@@ -79,17 +79,17 @@ async function registerUser() {
         password: $("#registerPassword").val(),
         conferma_password: $("#registerConfirmPassword").val(),
         consenso_trattamento_dati: $("#registerConsenso").is(":checked")  // Restituisce true se selezionato, altrimenti false
-};
-
+    };
+    
     try {
         const response = await fetch(`${API_URL}/api/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userData)
         });
-
+        
         const data = await response.json();
-
+        
         if (response.ok) {
             Swal.fire({
                 icon: 'success',
@@ -151,26 +151,26 @@ function updateLoginButton(isLoggedIn) {
 async function loginUser() {
     const email = $("#loginEmail").val();
     const password = $("#loginPassword").val();
-
+    
     try {
         const response = await fetch(`${API_URL}/api/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
-
+        
         const data = await response.json();
         console.log("Dati ricevuti dal backend:", data);
-
+        
         if (response.ok) {
             localStorage.setItem("userToken", data.token);
             localStorage.setItem("userId", data.user_id);
             localStorage.setItem("userName", data.name);
-
+            
             isLoggedIn = true;
             updateLoginButton(true);
             closeModal("#loginModal");
-
+            
             Swal.fire({
                 icon: 'success',
                 title: 'Login effettuato con successo!',
@@ -268,16 +268,18 @@ function loadProfessionals() {
         
         data.forEach(professional => {
             let memberCard = `
+            <div class="p-2 col-4">
                 <div class="team-member">
                     <img src="../assets/images/${professional.immagine}" alt="${professional.nome}">
                     <h4>${professional.nome}</h4>
                     <span>${professional.specializzazione}</span>
                     <a class="verifica-disponibilita" data-doctorid="${professional.id}" href="#">Verifica disponibilità</a>
                 </div>
+            </div>
             `;
             teamContainer.append(memberCard);
         });
-
+        
         $(".verifica-disponibilita").click(function (e) {
             e.preventDefault();
             if (!isLoggedIn) {
@@ -291,7 +293,6 @@ function loadProfessionals() {
         console.error("Errore nel caricamento dei professionisti.");
     });
 }
-
 document.addEventListener("DOMContentLoaded", function () {
     const bookNowBtn = document.getElementById("bookNowBtn"); 
     const teamSection = document.getElementById("team"); 
@@ -346,16 +347,16 @@ document.getElementById('generateCF').addEventListener('click', async function (
         Swal.fire('Errore', 'Completa tutti i campi richiesti per generare il codice fiscale.', 'error');
         return;
     }
-
+    
     try {
         const response = await fetch(`${API_URL}/api/genera_codice_fiscale`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nome, cognome, data_nascita, sesso, comune })
         });
-
+        
         const data = await response.json();
-
+        
         if (response.ok) {
             $("#registerCF").val(data.codice_fiscale);
             Swal.fire('Successo', 'Codice fiscale generato correttamente!', 'success');
@@ -372,7 +373,7 @@ document.getElementById('generateCF').addEventListener('click', async function (
 async function getCodiceCatastale(comuneId) {
     const comuniResponse = await fetch("/assets/json/comuni.json");  
     if (!comuniResponse.ok) throw new Error("Errore nel caricamento dei dati comuni");
-
+    
     const comuniData = await comuniResponse.json();
     const comune = comuniData.find(com => Number(com.id) === Number(comuneId));
     
