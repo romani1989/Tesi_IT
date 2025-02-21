@@ -184,12 +184,12 @@ backToHomeBtn.addEventListener("click", () => {
 });
 
 const professionals = {
-    1: { name: "Giuseppe Rossi", specialization: "Medicina generale e longevità", experience: "10 anni +", image: "/assets/images/Giuseppe.jpeg" },
-    2: { name: "Gelsomina Bianchi", specialization: "Psicologa specializzata in stress lavoro e burnout", experience: "15 anni +", image: "/assets/images/Gelsomina.jpeg" },
-    3: { name: "Guglielmo Verdi", specialization: "Master in Psicologia dello Sport", experience: "30 anni +", image: "/assets/images/Guglielmo.png" },
-    4: { name: "Vincenzo Esposito", specialization: "Medicina preventiva ", experience: "32 anni +", image: "/assets/images/Vincenzo.png" },
-    5: { name: "Elena Cimmino", specialization: "Specializzata in nutrizione sportiva", experience: "20 anni +", image: "/assets/images/Elena.png" },
-    6: { name: "Carmela Crilino", specialization: "Nutrizionista funzionale", experience: "18 anni +", image: "/assets/images/Carmela.png" }
+    1: { name: "Giuseppe Reale", specialization: "Medicina generale e longevità", experience: "10 anni +", image: "/assets/images/Giuseppe.jpeg" },
+    2: { name: "Gelsomina Valle", specialization: "Psicologa specializzata in stress lavoro e burnout", experience: "15 anni +", image: "/assets/images/Gelsomina.jpeg" },
+    3: { name: "Guglielmo Simone", specialization: "Master in Psicologia dello Sport", experience: "30 anni +", image: "/assets/images/Guglielmo.png" },
+    4: { name: "Vincenzo Russo", specialization: "Medicina preventiva ", experience: "32 anni +", image: "/assets/images/Vincenzo.png" },
+    5: { name: "Carmela Crilino", specialization: "Specializzata in nutrizione sportiva", experience: "20 anni +", image: "/assets/images/Carmela.png" },
+    6: { name: "Elena Lito", specialization: "Nutrizionista funzionale", experience: "18 anni +", image: "/assets/images/Elena.png" }
 };
 
 
